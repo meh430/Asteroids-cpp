@@ -1,4 +1,3 @@
-#include <iostream>
 #include <cmath>
 #include "Ship.h"
 
@@ -43,7 +42,6 @@ std::vector<Point>* Ship::get_positions() {
 }
 
 std::vector<Point>* Ship::get_tip_tail() {
-	//get tip and the tail
 	return nullptr;
 }
 
@@ -60,11 +58,11 @@ void Ship::convert_pos() {
 	this->posPtr[loc] = this->positions.at(0).y_pos;
 }
 
-double to_rad(int deg) {
+double to_rad(const int &deg) {
 	return (deg * PI) / 180;
 }
 
-int to_deg(double rad) {
+int to_deg(const double &rad) {
 	return (int)round(rad*180 / PI);
 }
 //{l, tip, r}
@@ -109,35 +107,36 @@ void Ship::rotate() {
 }
 
 void Ship::translate(const char &direction) {
+	const int vel = 7;
 	switch(direction) {
 		case 'a':
 			//{l, tip, r, tail}
 			for(auto &val : this->positions) {
-				val.x_pos-=5;
+				val.x_pos-= vel;
 			}
 			
-			this->ship_origin.x_pos-=5;
+			this->ship_origin.x_pos-=vel;
 			break;
 		case 'd':
 			for(auto &val : this->positions) {
-				val.x_pos+=5;
+				val.x_pos+=vel;
 			}
 			
-			this->ship_origin.x_pos+=5;
+			this->ship_origin.x_pos+=vel;
 			break;
 		case 'w':
 			for(auto &val : this->positions) {
-				val.y_pos-=5;
+				val.y_pos-=vel;
 			}
 			
-			this->ship_origin.y_pos-=5;
+			this->ship_origin.y_pos-=vel;
 			break;
 		case 's':
 			for(auto &val : this->positions) {
-				val.y_pos+=5;
+				val.y_pos+=vel;
 			}
 			
-			this->ship_origin.y_pos+=5;
+			this->ship_origin.y_pos+=vel;
 			break;
 	}	
 }
@@ -145,6 +144,36 @@ void Ship::translate(const char &direction) {
 void Ship::draw_ship() {
 	this->convert_pos();
 	fillpoly(3, this->posPtr);
+	Point *left = &(this->positions.at(0));
+	Point *tip = &(this->positions.at(1));
+	Point *right = &(this->positions.at(2));
+	if(this->ship_origin.x_pos > 800) {
+		this->ship_origin.x_pos-=800;
+		(*left).x_pos-=800;
+		(*tip).x_pos-=800;
+		(*right).x_pos-=800;
+	}
+	
+	if(this->ship_origin.x_pos < 0) {
+		this->ship_origin.x_pos+=800;
+		(*left).x_pos+=800;
+		(*tip).x_pos+=800;
+		(*right).x_pos+=800;
+	} 
+	
+	if(this->ship_origin.y_pos > 800) {
+		this->ship_origin.y_pos-=800;
+		(*left).y_pos-=800;
+		(*tip).y_pos-=800;
+		(*right).y_pos-=800;
+	}
+	
+	if(this->ship_origin.y_pos < 0) {
+		this->ship_origin.y_pos+=800;
+		(*left).y_pos+=800;
+		(*tip).y_pos+=800;
+		(*right).y_pos+=800;	
+	}
 }
 
 int Ship::facing() {

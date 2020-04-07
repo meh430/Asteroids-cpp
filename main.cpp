@@ -1,6 +1,4 @@
-#include <iostream>
 #include <graphics.h>
-#include <Windows.h>
 #include "Field.h"
 int main() {
 	initwindow(800, 800);
