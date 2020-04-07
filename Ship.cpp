@@ -147,10 +147,28 @@ void Ship::draw_ship() {
 	fillpoly(3, this->posPtr);
 }
 
+int Ship::facing() {
+	if(this->ship_origin.x_pos < this->positions.at(1).x_pos) {
+		return 1;
+	} else if(this->ship_origin.x_pos > this->positions.at(1).x_pos) {
+		return -1;
+	} else {
+		if(this->ship_origin.y_pos < this->positions.at(1).y_pos) {
+			return 1;
+		} else {
+			return -1;
+		}
+	}
+}
+
 int Ship::get_slope() {
 	Point tip = this->positions.at(1);
 	int d_x = tip.x_pos - this->ship_origin.x_pos;
 	int d_y = tip.y_pos - this->ship_origin.y_pos;
+	if(d_x == 0) {
+		return -200;
+	}
+	
 	return (int)round(d_y/d_x);
 }
 

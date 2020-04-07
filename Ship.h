@@ -22,6 +22,7 @@ class Ship {
 		void draw_ship();
 		void init_start_pos();
 		int get_slope();
+		int facing();
 		void convert_pos();
 		Ship();
 		~Ship();

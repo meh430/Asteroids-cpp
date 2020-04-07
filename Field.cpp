@@ -1,5 +1,6 @@
 #include <graphics.h>
 #include <Windows.h>
+#include <iostream>
 #include "Field.h"
 
 void Field::handle_inputs() {
@@ -21,17 +22,24 @@ void Field::handle_inputs() {
 }
 
 void Field::add_projectile() {
-	Projectile proj(this->ship.positions.at(1).x_pos, this->ship.positions.at(1).y_pos, this->ship.get_slope());
+	int proj_vel = this->ship.get_slope();
+	int facing = this->ship.facing();
+	proj_vel *= facing;
+	Projectile proj(this->ship.positions.at(1).x_pos, this->ship.positions.at(1).y_pos, proj_vel, facing);
 	this->projectiles.push_back(proj);
 }
 
 void Field::draw_stuff() {
+	std::cout<<"num projectiles: " << this->projectiles.size() << "\n";
 	this->ship.draw_ship();
-	for(auto &val : this->projectiles) {
-		if(val.d_trav >= 100) {
-			continue;
+	auto it = this->projectiles.begin();
+	while(it != this->projectiles.end()) {
+		if((*it).d_trav >=300) {
+			it = this->projectiles.erase(it);
+		} else {
+			(*it).draw_projectile();
+			++it;
 		}
-		val.draw_projectile();
 	}
 }
 
