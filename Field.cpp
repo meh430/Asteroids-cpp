@@ -47,7 +47,7 @@ void Field::draw_stuff() {
 		if((*it).d_trav >= 300) {
 			it = this->projectiles.erase(it);
 		} else {
-			(*it).draw_projectile();
+			(*it).draw_body();
 			++it;
 		}
 	}

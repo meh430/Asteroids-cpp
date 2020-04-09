@@ -12,7 +12,7 @@ Projectile::Projectile(int start_x, int start_y, int vel, int facing) {
 	std::cout<<"vel: " << vel << "\n";
 }
 
-void Projectile::draw_projectile() {
+void Projectile::draw_body() {
 	circle(this->current.x_pos, this->current.y_pos, 10);
 	if(this->current.x_pos > 800) {
 		this->current.x_pos-=800;

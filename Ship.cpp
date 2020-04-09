@@ -4,17 +4,12 @@
 #define PI 3.14159265
 
 Ship::Ship() {
-	//set up initial positions
 	this->ship_angle = 0;
 	this->init_start_pos();
 }
 
-Ship::~Ship() {
-	//clear device and set position at corner
-	for(auto &val : this->positions) {
-		val.x_pos = 0;
-		val.y_pos = 0;
-	}
+Ship::~Ship() {	
+	this->positions.clear();
 }
 
 void Ship::init_start_pos() {
